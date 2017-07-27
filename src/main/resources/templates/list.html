@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>展示页面</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<h1>展示页面</h1>
+<div style="width: 800px">
+<table align="center" border="1" class="table table-hover">
+    <tr>
+        <td>用户名</td>
+        <td>密码</td>
+        <td>年龄</td>
+        <td>性别</td>
+    </tr>
+    <tr th:each="list:${list}">
+        <td th:text="${list.username}"></td>
+        <td th:text="${list.password}"></td>
+        <td th:text="${list.age}"></td>
+        <td th:text="${list.sex}"></td>
+    </tr>
+</table>
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

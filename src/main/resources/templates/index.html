@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>登录页面</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        //入口函数
+        $(function name() {
+            //通过id获得username  失去焦点事件
+            $("#username").blur(function() {
+                var name = $("#username").val();
+                $("span").empty();
+                if(name==""){
+                    var span = $("<span>请输入用户名!</sapan>");
+                    $("#username").after(span);
+                    $("#btn1").attr("disabled", "disabled");
+                    return false;
+                }
+                $.ajax({
+                    type : "GET",
+                    url : "userExist",
+                    data : {
+                        username : $("#username").val()
+                    },
+                    dataType : "json",
+                    success : function(data) {
+                        $("span").empty();
+                        if (data == "1") {
+                            var span = $("<span>用户名已存在!</sapan>");
+                            $("#username").after(span);
+                            $("#btn1").attr("disabled", "disabled");
+                        } else {
+                            var span = $("<span>用户名可以使用.</sapan>");
+                            $("#btn1").removeAttr("disabled");
+                            $("#username").after(span);
+                        }
+                    }
+                });
+            });
+        /*    //获得password的id
+            $(function password() {
+                //获得password失去焦点事件
+                $("#password").blur(function () {
+                    //得到password的value值
+                    var password = $("#password").val();
+                    //清空span
+                    $("span").empty();
+                    if(password==""){
+                        var span = $("<span>请输入密码!</sapan>");
+                        //在哪里显示这句话(在密码输入框下)
+                        $("#password").after(span);
+                        //禁止按钮
+                        $("#btn1").attr("disabled", "disabled");
+                        return false;
+                    }
+                });
+            });
+            //age验证
+            $(function age() {
+                //获得age的id获得password失去焦点事件
+                $("#age").blur(function () {
+                    //得到age的value值
+                    var age = $("#age").val();
+                    //清空span
+                    $("span").empty();
+                    if(age==""){
+                        var span = $("<span>请输入您的年龄!</sapan>");
+                        //在哪里显示这句话(在密码输入框下)
+                        $("#age").after(span);
+                        //禁止按钮
+                        $("#btn1").attr("disabled", "disabled");
+                        return false;
+                    }
+                });
+            });*/
+        });
+    </script>
+    <script type="text/javascript">
+        //注册点击事件
+        $(function click() {
+            $("#btn1").click(function () {
+                $("span").empty();
+               var name = $("#username").val();
+               var password = $("#password").val();
+               var age = $("#age").val();
+               if(name==""){
+                   var span = $("<span style='color: red; font-size: 20px' >请输入用户名!</span>");
+                   $("#username").before(span);
+                   return false;
+               };
+                if(password==""){
+                    var span = $("<span style='color: red; font-size: 20px' >请输入密码!</span>");
+                    $("#password").before(span);
+                    return false;
+                };
+                if(age==""){
+                    var span = $("<span style='color: red; font-size: 20px' >请输入年龄!</span>");
+                    $("#age").before(span);
+                    return false;
+                };
+
+               return true;
+            });
+
+        })
+    </script>
+    <script type="text/javascript">
+        $(function login() {
+            $("#login").click(function () {
+                $("span").empty();
+                var name = $("#name").val();
+                var passwd = $("#passwd").val();
+                if(name==""){
+                    var span = $("<span style='color: red; font-size: 30px' >请输入用户名!</sapan>");
+                    $("#name").before(span);
+                    return false;
+                };
+                if(passwd==""){
+                    $("span").empty();
+                    var span = $("<span style='color: red; font-size: 30px' >请输入密码!</sapan>");
+                    $("#passwd").before(span);
+                    return false;
+                };
+                return true;
+            });
+        })
+
+
+
+
+    </script>
+
+
+
+</head>
+<body>
+<h1>欢迎登录</h1>
+<div style="width: 450px">
+<form class="form-horizontal" method="post" action="login">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" placeholder="请输入您的用户名" name="username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="passwd" placeholder="请输入您的密码" name="password">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="登录" class="btn btn-primary" id="login">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">还没有账户?点击注册</button>
+        </div>
+    </div>
+</form>
+</div>
+
+<!--注册的模态框 -->
+<form action="save" method="post" onsubmit="return one()">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">请认真填写您的注册信息</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="username" class="control-label">用户名:</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label">密码:</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="control-label">年龄:</label>
+                        <input type="text" class="form-control" id="age" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="sex1" class="control-label">性别:</label>
+                        <input type="radio" class="btn btn-primary" id="sex1" name="sex" value="男">男
+                        <input type="radio" class="btn btn-primary" id="sex2" name="sex" value="女">女
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">取消注册</button>
+                <input type="submit" value="确认注册" class="btn btn-primary" id="btn1"/>
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+</body>
+</html>
